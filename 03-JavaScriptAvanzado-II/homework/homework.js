@@ -3,6 +3,12 @@
 // Closures
 
 function counter() {
+  let dato = 0;
+  
+  return function acomulador () {
+  dato++;
+    return dato;
+  }  
   /*
   Ejercicio 1
 
@@ -21,7 +27,29 @@ function counter() {
    */
 }
 
+
 function cacheFunction(cb) {
+
+  const datos = {}
+
+
+return function proceso (arg){
+
+  if(datos.hasOwnProperty(arg)){
+    return datos[arg];
+  }else{
+    const ejecucion = cb(arg);
+    datos[arg]=ejecucion;
+    return ejecucion;
+  }
+
+
+ 
+
+}
+
+
+
   /*
   Ejercicio 2
 
@@ -41,6 +69,10 @@ function cacheFunction(cb) {
   squareCache(5)    // no volverá a invocar a square, simplemente buscará en la caché cuál es el resultado de square(5) y lo retornará (tip: si usaste un objeto, podés usar hasOwnProperty) 
 
   */
+
+
+
+
 }
 
 // Bind
@@ -59,6 +91,8 @@ function getNombre() {
   return this.nombre;
 }
 
+instructor
+
 /*
   Ejercicio 3
 
@@ -70,10 +104,16 @@ function getNombre() {
 let getNombreInstructor;
 let getNombreAlumno;
 
+getNombreInstructor = getNombre.bind(instructor);
+getNombreAlumno = getNombre.bind(alumno);
+
+
 /*
   Ejercicio 4
   
-  Sin modificar la función crearCadena, usar bind para guardar, en las tres variables declaradas a continuación, tres funciones que retornen una cadena (string) y el delimitador especificado (asteriscos, guiones, y guiones bajos, respectivamente). Las funciones obtenidas deberían recibir solamente un argumento - la cadena de texto - ya que los otros argumentos habrán sido "bindeados". 
+  Sin modificar la función crearCadena, usar bind para guardar, en las tres variables declaradas a continuación, tres funciones que retornen una cadena (string)
+   y el delimitador especificado (asteriscos, guiones, y guiones bajos, respectivamente). Las funciones obtenidas deberían recibir 
+   solamente un argumento - la cadena de texto - ya que los otros argumentos habrán sido "bindeados". 
 */
 
 function crearCadena(delimitadorIzquierda, delimitadorDerecha, cadena) {
@@ -81,8 +121,11 @@ function crearCadena(delimitadorIzquierda, delimitadorDerecha, cadena) {
 }
 
 let textoAsteriscos;
-let textoGuiones;
-let textoUnderscore;
+let textoGuiones = crearCadena.bind(null,"-","-") ;
+let textoUnderscore = crearCadena.bind(null,"_","_");
+
+textoAsteriscos = crearCadena.bind(null,"*","*");
+
 
 // No modifiquen nada debajo de esta linea
 // --------------------------------

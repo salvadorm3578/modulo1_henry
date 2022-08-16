@@ -9,22 +9,23 @@ Determiná que será impreso en la consola, sin ejecutar el código.
 
 ```javascript
 x = 1;
+
 var a = 5;
 var b = 10;
-var c = function(a, b, c) {
+var c = function(a, b, c) { //********************* 
   var x = 10;
   console.log(x);
   console.log(a);
-  var f = function(a, b, c) {
+  var f = function(a, b, c) { //*******************
     b = a;
     console.log(b);
     b = c;
     var x = 5;
-  }
-  f(a,b,c);
+  } //*********************************************
+  f(a,b,c);  // <--------------- ejecuto la funcion 2
   console.log(b);
-}
-c(8,9,10);
+}// ************************************************
+c(8,9,10); // <--------------- ejecuto la funcion 1
 console.log(b);
 console.log(x);
 ```
@@ -37,6 +38,7 @@ function foo() { console.log('Hola!'); }
 var bar = 1;
 baz = 2;
 ```
+
 
 ```javascript
 var instructor = "Tony";

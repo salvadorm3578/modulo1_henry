@@ -50,6 +50,8 @@ function DecimalABinario(num) {
 
 }
 
+console.log("hola");
+
 
 module.exports = {
   BinarioADecimal,
