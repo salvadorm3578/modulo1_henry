@@ -11,9 +11,80 @@ Implementar la clase LinkedList, definiendo los siguientes métodos:
   En caso de que la búsqueda no arroje resultados, search debe retornar null.
 */
 
-function LinkedList() {}
+function LinkedList() {
+  this.head = null;
+  this.size = 0;
 
-function Node(value) {}
+
+  this.add = function (value) {
+
+    const newNode = new Node(value, null);
+    if (!this.head){
+        this.head = newNode;
+    }else {
+        let interar = this.head;
+        while(interar.next){
+            interar = interar.next;
+        }
+        interar.next = newNode;
+        
+    }
+    this.size++;
+
+  }
+
+  this.remove = function () {
+  
+    let index = this.size - 1
+
+     if(index < 0 || index > this.size ){
+         return null;
+     }
+
+     let current = this.head;
+     let previous = null;
+
+     if (index === 0){
+         this.head = current.next;
+     }else {
+         for (let i = 0; i <index; i++) {
+             previous = current;
+             current = current.next;
+             
+         }
+         previous.next = current.next;
+     }
+     this.size--;
+     return current.value;
+
+ }
+
+  this.search = function (data) {
+    let current = this.head;
+        
+    while (current !=null) {
+        if (current.value === data) {
+            return current.value
+         } 
+        if (typeof data === `function`){
+          if (data(current.value)){
+            return current.value
+          }
+        }
+            current=current.next;
+         }
+  return null;
+  }
+
+}
+
+function Node(value) {
+  this.value = value;
+  this.next = null;
+}
+
+
+
 
 /*
 Implementar la clase HashTable.
@@ -30,7 +101,49 @@ La clase debe tener los siguientes métodos:
 Ejemplo: supongamos que quiero guardar {instructora: 'Ani'} en la tabla. Primero puedo chequear, con hasKey, si ya hay algo en la tabla con el nombre 'instructora'; luego, invocando set('instructora', 'Ani'), se almacenará el par clave-valor en un bucket específico (determinado al hashear la clave)
 */
 
-function HashTable() {}
+function HashTable() {
+
+  //arreglo con objetos
+  this.numBuckets = 35;
+  this.buckets = [];
+
+}
+
+HashTable.prototype.hash = function (key){
+  let sum = 0;
+  for (let i = 0; i < key.length; i++) {
+    sum = sum + key.charCodeAt(i);
+  }
+  return sum % this.numBuckets; // calcula en que lugar de nuestro areglo buckets va a guardar el key
+
+}
+HashTable.prototype.set = function (key,value){
+  if (typeof key !== `string`) throw new TypeError (`El key debe ser string`)
+ let posArr = this.hash(key);  
+ // si la posicion en el arreglo esta vacia crea objeto
+if (this.buckets[posArr] === undefined){ 
+  this.buckets[posArr] = {}
+}
+ this.buckets[posArr][key]=value;
+}
+
+HashTable.prototype.get = function (key){
+  let posArr = this.hash(key); 
+  return this.buckets[posArr][key]; 
+}
+
+
+HashTable.prototype.hasKey= function (key){
+  let posArr = this.hash(key); 
+  //return this.buckets[posArr].hasOwnProperty(key); //otra forma
+  if (this.buckets[posArr][key] !== undefined ){
+    return true;
+  }; 
+  return false;
+  
+
+}
+
 
 // No modifiquen nada debajo de esta linea
 // --------------------------------
