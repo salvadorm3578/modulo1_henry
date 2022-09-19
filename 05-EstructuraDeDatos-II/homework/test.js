@@ -1,101 +1,75 @@
-function LinkedList() {
-    this.head = null;
-    this.size = 0;
+function BinarySearchTree(value) {
+  this.value = value;
+  this.left = null;
+  this.right = null;
+  this.size1 = 1;
   
-  
-    this.add = function (value) {
-  
-      const newNode = new Node(value, null);
-      if (!this.head){
-          this.head = newNode;
+}
+
+BinarySearchTree.prototype.size = function(){
+  return this.size1;
+}
+
+BinarySearchTree.prototype.insert = function(value){
+
+if (value < this.value) {
+
+      if (this.left){
+          this.left.insert(value);
       }else {
-          let interar = this.head;
-          while(interar.next){
-              interar = interar.next;
-          }
-          interar.next = newNode;
-          
+          this.left = new BinarySearchTree(value)
       }
-      this.size++;
-  
-    }
-  
-    this.remove = function () {
-  
-       let index = this.size - 1
 
-        if(index < 0 || index > this.size ){
-            return null;
-        }
+}else {
 
-        let current = this.head;
-        let previous = null;
-
-        if (index === 0){
-            this.head = current.next;
+        if (this.right){
+            this.right.insert(value);
         }else {
-            for (let i = 0; i <index; i++) {
-                previous = current;
-                current = current.next;
-                
-            }
-            previous.next = current.next;
+            this.right = new BinarySearchTree(value)   
         }
-        this.size--;
-        return current.value;
-  
+}
+this.size1++;
+
+}
+
+BinarySearchTree.prototype.contains = function(value){
+
+
+  if (value === this.value) {
+    return true;
+  }
+
+
+  if (value < this.value) {
+  if (this.left){
+    if (this.left.value === value){
+      return true;
+    }else{
+      this.left.contains(value);
     }
-  
+    }else { 
+    return false;
+  }
 
-    this.search = function (data) {
+}else {
 
-        let current = this.head;
-        
-    
-        while (current !=null) {
-            if (current.value === data) {
-
-                return current.value
-
-             }
-             if (typeof data === `function`){
-                if (data(current.value)){
-                  return current.value
-                }
-              }
-                
-                current=current.next;
-    
-        
-    
+    if (this.right){
+      if (this.right.value===value){
+        return true;
+      }else{
+        this.right.contains(value);
       }
-      return null;
-    
+    }else {
+      return false;
     }
+}
+  
+}
 
-  
-  }
-  
-  function Node(value) {
-    this.value = value;
-    this.next = null;
-  }
-  
-  const test = new LinkedList;
-  test.add('first'); 
-  test.add('second'); 
-  test.add('tres'); 
-  console.log (test.head);
-  console.log (test.size);
-  console.log (test.search(function(nodeValue) {
-    return nodeValue === 'tres';
-  }));
-  console.log (test.remove());
-  console.log (test.remove());
-  console.log (test.size);
-  console.log(ana())
-
-  function ana (nodeValue) {
-    return nodeValue === 'tres';
-  }
- 
+const test = new BinarySearchTree(9);
+console.log(test);
+test.insert(4);
+console.log(test);
+console.log(test.left.value)
+console.log(test.value);
+console.log(test.contains(8));

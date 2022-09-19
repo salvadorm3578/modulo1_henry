@@ -22,18 +22,24 @@ function Queue() {
   
   }
   
-  this.Size = function(){  // ver datos en fila
-    return this.inCola - this.outCola;
-  }
+  //this.Size = function(){  // ver datos en fila
+  //  return this.inCola - this.outCola;
+  //}
   
   }
+  Queue.prototype.Size = function () {  // agrega a fila
+    return this.inCola - this.outCola;   
+  }
+
+
   
-  /*
+  
   const queue = new Queue;
   queue.enqueue(`A`);
   queue.enqueue(`B`);
   queue.enqueue(`C`);
+  queue.enqueue(`h`);
   queue.dequeue();
   console.log(queue.Size());
   console.log(queue)
-  */
+  
